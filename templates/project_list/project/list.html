@@ -1,0 +1,80 @@
+{#{% extends "project_list/base.html" %}#}
+{#{% block title %}Progects{% endblock %}#}
+{#{% block content %}#}
+{#    <h1>Список проектов</h1>#}
+{#    {% for project in projects %}#}
+{#        <tr class="{% if forloop.counter0|divisibleby:2 %}highlight{% endif %}">#}
+{#            <td>{{ forloop.counter }}</td>#}
+{#            <td>{{ project.effect }}</td>#}
+{#            <td>{{ project.responsible }}</td>#}
+{#            <td>{{ project.title }}</td>#}
+{#            <td>{{ project.description }}</td>#}
+{#            <td>{{ project.created|date:"Y-m-d" }}</td>#}
+{#        </tr>#}
+{#        <h2>#}
+{#            <a href="{% url 'project:project_detail' project.id %}">#}
+{#                {{ project.title }}#}
+{#            </a>#}
+{#        </h2>#}
+{#            <div class="card">#}
+{#                <div class="card-body">#}
+{#                    Published {{ project.title }} by {{ project.author }}#}
+{#                </div>#}
+{#                {{ project.body|truncatewords:30|linebreaks }}#}
+{#            </div>#}
+{##}
+{#        <p class="date">#}
+{#            Published {{ project.title }} by {{ project.author }}#}
+{#        </p>#}
+{#        {{ project.body|truncatewords:30|linebreaks }}#}
+{#    {% endfor %}#}
+{#{% endblock %}#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Проекты Фабрики Идей</h1>
+        <p class="caption">Ниже представлены проекты Фабрики идей</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Предприятие</th>
+                    <th>Цех</th>
+                    <th>Эффект</th>
+                    <th>Ответсвтенный</th>
+                    <th>Наименование проекта</th>
+                    <th>Описание проекта</th>
+                    <th>Дата согласования</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ project.manufacture }}</td>
+                        <td>{{ project.department }}</td>
+                        <td>{{ project.effect }}</td>
+                        <td>{{ project.responsible }}</td>
+                        <td>
+                            <a href="{% url 'project:project_detail' project.id %}">
+                                {{ project.title }}
+                            </a>
+                        </td>
+                        <td>{{ project.description }}</td>
+                        <td>{{ project.created|date:"Y-m-d" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
